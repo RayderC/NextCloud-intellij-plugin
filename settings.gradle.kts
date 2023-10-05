@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "NextCloud-intellij-plugin"
+rootProject.name = "NextCloud-sync"
