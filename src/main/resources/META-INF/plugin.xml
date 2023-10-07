@@ -25,13 +25,19 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <toolWindow id="YourToolWindowId" factoryClass="rayder.xyz.FileExplorerToolWindowFactory"/>
     </extensions>
 
+
     <actions>
-        <action id="MyCustomAction" class="rayder.xyz.MyCustomAction" text="My Custom Action" description="Description of my custom action">
+        <action id="Download" class="rayder.xyz.Download" text="Download" description="Downloads file">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift X"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift D"/>
+        </action>
+
+        <action id="Upload" class="rayder.xyz.Upload" text="Upload" description="Uploads file">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift U"/>
         </action>
     </actions>
 
