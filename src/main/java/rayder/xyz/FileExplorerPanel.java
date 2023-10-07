@@ -18,9 +18,7 @@ public class FileExplorerPanel extends AnAction {
         VirtualFile file = FileChooser.chooseFile(descriptor, null, null);
 
         System.out.println(file);
-        String OrinalFile = String.valueOf(file).replace(" ", "+");
-        System.out.println(OrinalFile);
-        String filepath = OrinalFile.replace("file:////", "/");
+        String filepath = file.replace("file://", "").replace(" ", "+");
         System.out.println(filepath);
 
         // You can do something with the selected file here
