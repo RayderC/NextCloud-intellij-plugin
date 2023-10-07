@@ -25,7 +25,6 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="YourToolWindowId" factoryClass="rayder.xyz.FileExplorerToolWindowFactory"/>
     </extensions>
 
 
@@ -38,6 +37,11 @@
         <action id="Upload" class="rayder.xyz.Upload" text="Upload" description="Uploads file">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift U"/>
+        </action>
+
+        <action id="FileExplorerPanel" class="rayder.xyz.FileExplorerPanel" text="Open File Explorer" description="Open File Explorer">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift I"/>
         </action>
     </actions>
 
