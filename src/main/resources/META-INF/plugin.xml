@@ -38,11 +38,6 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift U"/>
         </action>
-
-        <action id="FileExplorerPanel" class="rayder.xyz.FileExplorerPanel" text="Open File Explorer" description="Open File Explorer">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="shift I"/>
-        </action>
     </actions>
 
 </idea-plugin>

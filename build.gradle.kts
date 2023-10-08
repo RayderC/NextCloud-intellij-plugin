@@ -20,6 +20,12 @@ intellij {
     plugins.set(listOf(/* Plugin Dependencies */))
 }
 
+dependencies {
+    implementation ("org.apache.httpcomponents:httpclient:4.5.13")
+    implementation ("com.github.lookfirst:sardine:5.11")
+
+}
+
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
