@@ -1,33 +1,51 @@
 package rayder.xyz;
 
+import com.github.sardine.DavResource;
+import com.github.sardine.Sardine;
+import com.github.sardine.SardineFactory;
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 public class NextcloudAPI {
-    private static final String NEXTCLOUD_API_URL = "https://nc.rayder.xyz/remote.php/webdav/";
+    static String NEXTCLOUD_API_URL = "https://nc.rayder.xyz/remote.php/webdav/";
 
-    public String getFileContents(String filePath, String username, String password) throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(NEXTCLOUD_API_URL + filePath);
+    public static void getFileContents(String filePath, String username, String password) throws Exception {
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpGet request = new HttpGet(NEXTCLOUD_API_URL);
 
-        // Set authentication headers
-        httpGet.addHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()));
+        // Set up basic authentication
+        String credentials = username + ":" + password;
+        String base64Credentials = Base64.getEncoder().encodeToString(credentials.getBytes());
+        request.setHeader("Authorization", "Basic " + base64Credentials);
 
-        HttpResponse response = httpClient.execute(httpGet);
-        int statusCode = response.getStatusLine().getStatusCode();
+        Sardine sardine = SardineFactory.begin(username, password);
 
-        if (statusCode == 200) {
-            // Successfully retrieved the file
-            return EntityUtils.toString(response.getEntity());
-        } else {
-            // Handle error cases
-            throw new Exception("Failed to retrieve file: " + statusCode);
+        try {
+            listFilesRecursively(sardine, NEXTCLOUD_API_URL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private static void listFilesRecursively(Sardine sardine, String directoryUrl) throws IOException {
+        List<DavResource> resources = sardine.list(directoryUrl);
+
+        for (DavResource resource : resources) {
+            System.out.println(resource.getDisplayName());
+
+            // Check if the resource is a directory
+            if (resource.isDirectory()) {
+                // Recursively list files in subdirectories
+                listFilesRecursively(sardine, resource.getHref().toString());
+            }
         }
     }
 }

@@ -23,7 +23,6 @@ intellij {
 dependencies {
     implementation ("org.apache.httpcomponents:httpclient:4.5.13")
     implementation ("com.github.lookfirst:sardine:5.11")
-
 }
 
 tasks {
